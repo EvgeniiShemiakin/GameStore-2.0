@@ -1,0 +1,59 @@
+﻿@model List<UserVM>
+
+<div class="container text-center russo-one mt-2" style="color: blanchedalmond;">
+    <h2>Все пользователи</h2>
+</div>
+<div class="row">
+    <div class="col-3">
+        <partial name="_AdminPanel" />
+    </div>
+    <div class="col-9">
+        <div class="container text-center russo-one mt-2 w-75">
+            @if (Model == null || !Model.Any())
+            {
+                <h2 style="color: blanchedalmond;">Список пользователей пуст</h2>
+            }
+            else
+            {
+                <div class="container mt-3">
+                    <table class="table table-dark my_table text-center">
+                        <thead>
+                            <tr>
+                                <th>Логин (email)</th>
+                                <th>ID</th>
+                                <th>Действия</th>
+                                <th>Роль</th>
+                                <th>Подробнее</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                <tr>
+                                    <td>@user.Email</td>
+                                    <td>@user.Id</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" style="color: blanchedalmond;" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Действия
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="ChangeRole" asp-route-userId="@user.Id">Сменить роль</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangeEmail" asp-route-userId="@user.Id">Сменить почту</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangePhone" asp-route-userId="@user.Id">Сменить номер</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword" asp-route-userId="@user.Id">Сменить пароль</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="DeleteUser" asp-route-userId="@user.Id">Удалить пользователя</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>@user.Role</td>
+                                    <td><a asp-controller="Admin" asp-action="AboutUser" asp-route-userId="@user.Id">Подробнее</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

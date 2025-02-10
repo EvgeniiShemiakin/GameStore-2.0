@@ -1,0 +1,36 @@
+﻿@model ChangeEmail
+
+<div class="container text-center russo-one mt-2" style="color: blanchedalmond;">
+    <h2>Смена почты</h2>
+</div>
+<div class="row">
+    <div class="col-3">
+        @if (Model.UserId != null)
+        {
+            <partial name="~/Views/Admin/_AdminPanel.cshtml" />
+        }
+        else
+        {
+            <partial name="_AccountPanel" />
+        })
+    </div>
+    <div class="col-9">
+        <div class="container mt-3 mb-3 w-75 russo-one text-center p-3 border border-3 border-dark rounded-4" style="background-color: #cc2936;">
+            <form method="post">
+                <input type="hidden" asp-for="UserId" value="@Model.UserId"/>
+                <div class="mb-2">
+                    <label asp-for="Email">Новая почта</label><br />
+                    <input class="form-control w-50 mx-auto" asp-for="Email" />
+                    <span style="color:yellow; font-size:smaller" asp-validation-for="Email" />
+                </div>
+                <button type="submit" asp-controller="Account" asp-action="ChangeEmail" class="btn btn-dark button1 text-center w-50 mt-2">Сменить</button>
+                <div asp-validation-summary="ModelOnly"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="container text-center mt-3 mb-4">
+    <a role="button" class="btn btn-dark button1" asp-controller="Home" asp-action="Index">На главную</a>
+</div>

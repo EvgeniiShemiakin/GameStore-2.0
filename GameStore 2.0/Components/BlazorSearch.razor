@@ -1,0 +1,60 @@
+﻿@using GameStore_2._0.Models
+@using GameStore_2._0.Models.Reps
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="container text-center russo-one mt-2">
+    <h2 style="color: blanchedalmond;">Поиск игр</h2>
+</div>
+
+<div class="container mt-4 mb-4 w-25 russo-one text-center">
+    <input @bind-value="SearchText" @bind-value:event="oninput" @onkeyup="Search" placeholder="Поиск по названию" class="form-control" />
+</div>
+
+    @if (FilteredGames.Any() && !string.IsNullOrEmpty(SearchText))
+    {
+        <div class="container w-75">
+            <div class="row row-cols-1 row-cols-lg-3 g-4">
+                @foreach (var game in FilteredGames)
+                {
+                    <div class="col">
+                        <a href="Game/Index/@game.Id">
+                        <div class="card card-fadeIn border-3 border-black mx-auto shadow" style="width: 340px; height: 400px; position: relative; overflow: hidden;">
+                                <img src="@game.CoverImg" class="card-img genre-img" alt="..." style="width: 100%; height: auto;">
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <p style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: blanchedalmond; text-shadow: 2px 2px 4px black;" class="h2">@game.Title</p>
+                                    <p class="h4" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: blanchedalmond; text-shadow: 2px 2px 4px black;">@game.Price р.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+    <div class="container mt-4 mb-4 w-25 russo-one text-center">
+        <h4>Ничего не найдено</h4>
+    </div>
+    }
+    <div class="container text-center mt-3 mb-3">
+        <a href="/Home/Index" role="button" class="btn btn-dark button1 mt-2">На главную</a>
+    </div>
+
+
+@code {
+
+    [Inject]
+    public IGamesRepository? gameRepository { get; set; }
+
+    public string SearchText { get; set; } = string.Empty;
+    public List<GameVM> FilteredGames { get; set; } = new List<GameVM>();
+
+    private void Search()
+    {
+        if (gameRepository is not null)
+        {
+            FilteredGames = gameRepository.Search(SearchText).ToList();
+        }
+    }
+}

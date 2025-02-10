@@ -1,0 +1,10 @@
+﻿@model int
+
+@if (Model > 0)
+{
+    <a class="nav-link" asp-controller="Cart" asp-action="Index">Корзина <sub>@Model</sub></a>
+}
+else
+{
+    <a class="nav-link" asp-controller="Cart" asp-action="Index">Корзина</a>
+}

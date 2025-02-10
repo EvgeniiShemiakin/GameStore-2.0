@@ -1,0 +1,41 @@
+﻿@model OrderVM
+
+<div class="container text-center russo-one mt-2" style="color: blanchedalmond;">
+    <h2>О заказе</h2>
+</div>
+<div class="row">
+    <div class="col-3">
+        <partial name="_AccountPanel" />
+    </div>
+    <div class="col-9">
+        <div class="container mt-4 mb-4 w-75 russo-one text-center p-3 border border-3 border-dark rounded-4" style="background-color: #cc2936;">
+            <h4>Номер заказа : @Model.Id</h4>
+            <h4>Почта : @Model.Email</h4>
+            <h4>Номер : @Model.Phone</h4>
+            <h4>Дата и время : @Model.Date</h4>
+            <h4>Сумма заказа : @Model.OrderCost</h4>
+            <div class="container mt-3">
+                <table class="table table-dark my_table text-center">
+                    <thead>
+                        <tr>
+                            <th>Игра</th>
+                            <th>Ключ игры</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var game in Model.ActivationKeys)
+                        {
+                            <tr>
+                                <td>@game.Value.Title</td>
+                                <td>@game.Key</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container text-center mt-3 mb-4">
+    <a role="button" class="btn btn-dark button1" asp-controller="Home" asp-action="Index">На главную</a>
+</div>

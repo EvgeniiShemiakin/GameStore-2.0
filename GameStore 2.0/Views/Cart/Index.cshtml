@@ -1,0 +1,54 @@
+﻿@model CartVM
+
+<div class="container text-center russo-one mt-2" style="color: blanchedalmond;">
+    <h2>Корзина</h2>
+</div>
+
+@if (Model == null || Model.Positions.Count == 0)
+{
+    <div class="container mt-4 mb-4 w-25 russo-one text-center">
+        <h4>Корзина пуста</h4>
+        <a role="button" class="btn btn-dark button1" asp-controller="Home" asp-action="Index">На главную</a>
+    </div>
+}
+else
+{
+    <div class="container mt-3">
+        <table class="table table-dark my_table text-center">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Количество</th>
+                    <th>Цена за единицу</th>
+                    <th>Добавить / убрать</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var position in Model.Positions)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Game" asp-action="Index" asp-route-id="@position.Game.Id">@position.Game.Title</a>  
+                        </td>
+                        <td>@position.Amount</td>
+                        <td>@position.Game.Price руб.</td>
+                        <td class="h5">
+                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@position.Game.Id">+</a>
+                            <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@position.Game.Id">-</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-3">
+        <h4 class="text-center my_text">Итого c учетом скидки (@Model.UserDiscount %): @Model.CartCost руб.</h4>
+    </div>
+
+    <div class="container text-center mb-4 mt-3">
+        <a role="button" class="btn btn-dark button1" asp-controller="Order" asp-action="Create">Оформить заказ</a>
+        <a role="button" class="btn btn-dark button1" asp-controller="Cart" asp-action="ClearCart">Очистить корзину</a>
+        <a role="button" class="btn btn-dark button1" asp-controller="Home" asp-action="Index">На главную</a>
+    </div>
+}

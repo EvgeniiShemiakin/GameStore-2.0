@@ -1,0 +1,84 @@
+﻿@model GameVM
+
+<div class="container text-center russo-one mt-2" style="color: blanchedalmond;">
+    <h2>Добавить игру</h2>
+</div>
+<div class="row">
+    <div class="col-3">
+        <partial name="_AdminPanel" />
+    </div>
+    <div class="col-9">
+        <div class="container mt-4 mb-4 w-75 russo-one text-center p-3 border border-3 border-dark rounded-4" style="background-color: #cc2936;">
+            <form method="post">
+                <div class="mb-2">
+                    <label asp-for="Title">Название</label><br />
+                    <input class="form-control" asp-for="Title" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Price">Цена</label><br />
+                    <input class="form-control" asp-for="Price" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Description">Описание</label><br />
+                    <textarea class="form-control" asp-for="Description" rows="5"></textarea>
+                </div>
+
+                <div class="mb-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreRPG" value="1" @(Model.Genres != null && Model.Genres.Contains(Genre.RPG) ? "checked" : "")>
+                        <label class="form-check-label" for="genreRPG">RPG</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreShooter" value="2" @(Model.Genres != null && Model.Genres.Contains(Genre.Shooter) ? "checked" : "")>
+                        <label class="form-check-label" for="genreShooter">Shooter</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreRacing" value="3" @(Model.Genres != null && Model.Genres.Contains(Genre.Racing) ? "checked" : "")>
+                        <label class="form-check-label" for="genreRacing">Racing</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreFighting" value="4" @(Model.Genres != null && Model.Genres.Contains(Genre.Fighting) ? "checked" : "")>
+                        <label class="form-check-label" for="genreFighting">Fighting</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreHorror" value="5" @(Model.Genres != null && Model.Genres.Contains(Genre.Horror) ? "checked" : "")>
+                        <label class="form-check-label" for="genreHorror">Horror</label>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="CrslImg">Картинка карусели</label><br />
+                    <input class="form-control" id="CrslImg" name="CrslImg" value="@Model.CrslImg" />
+                </div>
+                <div class="mb-2">
+                    <label for="CoverImg">Картинка обложки</label><br />
+                    <input class="form-control" id="CoverImg" name="CoverImg" value="@Model.CoverImg" />
+                </div>
+                <div class="mb-2">
+                    <label for="Scr_Thumb">Thumbnails скриншотов</label><br />
+                    <input class="form-control" id="Scr_Thumb" name="Scr_Thumb" value="@Model.Scr_Thumb" />
+                </div>
+                <div class="mb-2">
+                    <label for="ScreenImg1">Скрин 1</label><br />
+                    <input class="form-control" id="ScreenImg" name="ScreenImg" value="@Model.ScreenImg[0]" />
+                </div>
+                <div class="mb-2">
+                    <label for="ScreenImg2">Скрин 2</label><br />
+                    <input class="form-control" id="ScreenImg2" name="ScreenImg" value="@Model.ScreenImg[1]" />
+                </div>
+                <div class="mb-2">
+                    <label for="ScreenImg3">Скрин 3</label><br />
+                    <input class="form-control" id="ScreenImg3" name="ScreenImg" value="@Model.ScreenImg[2]" />
+                </div>
+                <div class="mb-2">
+                    <label for="Trailer">Трейлер с YouTube</label><br />
+                    <input class="form-control" id="Trailer" name="Trailer" value="@Model.Trailer" />
+                </div>
+                <div class="mb-2">
+                    <label for="Trailer_Thumb">Thumbnails трейлера</label><br />
+                    <input class="form-control" id="Trailer_Thumb" name="Trailer_Thumb" value="@Model.Trailer_Thumb" />
+                </div>
+                <button type="submit" asp-controller="Admin" asp-action="Modify" class="btn btn-dark button1 text-center w-50 mt-2">Изменить</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GameStore - buy games for PC</title>
+    <script type="importmap"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script>
+        // Предотвращение изменения масштаба с помощью Ctrl + Scroll
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Предотвращение изменения масштаба с помощью Ctrl + Plus/Minus
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body class="background bg_misc">
+    <div class="fullscreen-placeholder"></div>
+    <header>
+        <nav class="navbar navbar-expand-sm backgroundHeaderFooter">
+            <div class="container">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand logoFont" style="font-size: 40px; color: #1d1d1d;">
+                    <img src="/images/logo.png" alt="Logo" width="60" class="d-inline-block">
+                    GameStore <br>
+                </a>
+                <div class="collapse navbar-collapse russo-one" style="font-size: x-large;">
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Index" class="nav-link">Личный кабинет</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Login" class="nav-link">Личный кабинет</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            @await Component.InvokeAsync("CartItems")
+                        </li>
+                        <li class="nav-item">
+                            @await Component.InvokeAsync("WishlistItems")
+                        </li>
+                        <li class="nav-item">
+                            <a asp-page="/Search" class="nav-link">Поиск</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-page="/About" class="nav-link">О сайте</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" style="min-height: 100vh;">
+            @RenderBody()
+    </main>
+
+    <footer class="backgroundHeaderFooter logoFont">
+        <div class="container text-center">
+            <p style="margin-bottom: 0; padding-top: 20px; font-size: x-large;">
+                <img src="/images/logo.png" alt="Logo" width="35" class="d-inline-block">
+                GameStore
+            </p>
+            <small>© 2024</small>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+

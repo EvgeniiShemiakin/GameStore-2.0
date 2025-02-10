@@ -1,0 +1,10 @@
+﻿@model int
+
+@if (Model > 0)
+{
+    <a class="nav-link" asp-page="/Wishlist">Избранное <sub>@Model</sub></a>
+}
+else
+{
+    <a class="nav-link" asp-page="/Wishlist">Избранное</a>
+}

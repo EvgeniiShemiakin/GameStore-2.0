@@ -1,0 +1,60 @@
+﻿@model GameVM
+
+<div class="container text-center russo-one mt-2" style="color: blanchedalmond;">
+    <h2>Добавить игру</h2>
+</div>
+<div class="row">
+    <div class="col-3">
+        <partial name="_AdminPanel" />
+    </div>
+    <div class="col-9">
+        <div class="container mt-4 mb-4 w-75 russo-one text-center p-3 border border-3 border-dark rounded-4" style="background-color: #cc2936;">
+            <form method="post">
+                <div class="mb-2">
+                    <label asp-for="Title">Название</label><br />
+                    <input class="form-control" asp-for="Title"/>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Price">Цена</label><br />
+                    <input class="form-control" asp-for="Price" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Description">Описание</label><br />
+                    <textarea class="form-control" asp-for="Description" rows="5"></textarea>
+                </div>
+
+                <div class="mb-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreRPG" value="1">
+                        <label class="form-check-label" for="genreRPG">RPG</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreShooter" value="2">
+                        <label class="form-check-label" for="genreShooter">Shooter</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreRacing" value="3">
+                        <label class="form-check-label" for="genreRacing">Racing</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreFighting" value="4">
+                        <label class="form-check-label" for="genreFighting">Fighting</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="Genres" type="checkbox" id="genreHorror" value="5">
+                        <label class="form-check-label" for="genreHorror">Horror</label>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="ImgPath">Путь к изображениям</label><br />
+                    <input class="form-control" id="ImgPath" name="imgPath" />
+                </div>
+                <div class="mb-2">
+                    <label for="TrailerPath">ID видео с YouTube</label><br />
+                    <input class="form-control" id="TrailerPath" name="trailerId" />
+                </div>
+                <button type="submit" asp-controller="Admin" asp-action="AddGame" class="btn btn-dark button1 text-center w-50 mt-2">Добавить</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@page
+@model GameStore_2._0.Pages.WishlistModel
+
+<div class="container text-center russo-one mt-2" style="color: blanchedalmond;">
+    <h2>Список желаемого</h2>
+</div>
+
+<div class="container text-center russo-one mt-2">
+    @if (Model?.Wishlist?.WishlistGames == null || !Model.Wishlist.WishlistGames.Any())
+    {
+        <div class="container mt-4 mb-4 w-25 russo-one text-center">
+            <h4>Список желаемого пуст</h4>
+            <a role="button" class="btn btn-dark button1" asp-controller="Home" asp-action="Index">На главную</a>
+        </div>
+    }
+    else
+    {
+        <div class="container mt-3">
+            <table class="table table-dark my_table text-center">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Дата добавления</th>
+                        <th>Цена</th>
+                        <th>Купить игру</th>
+                        <th>Удалить из избранного</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var wishlistGame in Model.Wishlist.WishlistGames)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-controller="Game" asp-action="Index" asp-route-id="@wishlistGame.Game.Id">@wishlistGame.Game.Title</a>
+                            </td>
+                            <td>@wishlistGame.DateAdded</td>
+                            <td>@wishlistGame.Game.Price руб.</td>
+                            <td>
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@wishlistGame.Game.Id">Купить</a>
+                            </td>
+                            <td>
+                                <a asp-page="/Wishlist" asp-page-handler="RemoveFromWishlist" asp-route-gameId="@wishlistGame.Game.Id">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container text-center mb-4 mt-3">
+            <a role="button" class="btn btn-dark button1" asp-controller="Home" asp-action="Index">На главную</a>
+        </div>
+    }
+</div>

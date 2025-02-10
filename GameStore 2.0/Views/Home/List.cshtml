@@ -1,0 +1,66 @@
+﻿@model GameListVM;
+
+<div class="container text-center russo-one mt-2">
+    @if (Model.Genre != null)
+    {
+        <h2 style="color: blanchedalmond;">@Model.Genre</h2>
+    }
+    else
+    {
+        <h2 style="color: blanchedalmond;">Все игры</h2>
+    }
+</div>
+
+<section class="mb-4" id="genres">
+    <div class="container w-75">
+        <div class="row row-cols-1 row-cols-lg-3 g-4">
+            @foreach (var game in Model.Games)
+            {
+                <div class="col">
+                    <a asp-controller="Game" asp-action="Index" asp-route-id="@game.Id">
+                        <div class="card border-3 border-black mx-auto shadow" style="width: 340px; height: 400px; position: relative; overflow: hidden;">
+                            <img src="@game.CoverImg" class="card-img genre-img" alt="..." style="width: 100%; height: auto;">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                <p style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: blanchedalmond; text-shadow: 2px 2px 4px black;" class="h2">@game.Title</p>
+                                <p class="h4" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: blanchedalmond; text-shadow: 2px 2px 4px black;">@game.Price р.</p>
+                            </div>
+                            <div class="card-footer text-center" style="position: absolute; bottom: 0; width: 100%;">
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@game.Id" role="button" class="btn btn-danger w-100 mb-2">Купить</a>
+                                <a href="javascript:void(0);" onclick="addToCart(@game.Id)" role="button" class="btn btn-danger w-100">В корзину</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="container text-center mb-4 mt-5">
+        <button class="button1 btn btn-dark" onclick="history.back()">Назад</button>
+    </div>
+</section>
+<script>
+    var isAuthenticated = @Json.Serialize(User.Identity.IsAuthenticated);
+
+    function addToCart(gameId) {
+        if (!isAuthenticated) {
+            alert('Вы должны войти в аккаунт, чтобы добавить игру в корзину.');
+            return;
+        }
+
+        $.ajax({
+            url: '@Url.Action("AddToCartAjax", "Cart")',
+            type: 'POST',
+            data: { id: gameId },
+            success: function (response) {
+                if (response.success) {
+                    alert('Игра добавлена в корзину!');
+                } else {
+                    alert('Произошла ошибка при добавлении игры в корзину.');
+                }
+            },
+            error: function () {
+                alert('Произошла ошибка при добавлении игры в корзину.');
+            }
+        });
+    }
+</script>
